@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AndroidPosts</string>
+    <string name="posts_button">Posts</string>
+    <string name="create_post_button">Create post</string>
+    <string name="read_post_button">Read post</string>
+    <string name="settings_button">Settings</string>
+    <string name="posts_label">Posts </string>
+    <string name="login_label">Android post </string>
+    <string name="create_label">Create post </string>
+    <string name="read_label">Read post </string>
+    <string name="settings_label">Settings </string>
+
+</resources>
