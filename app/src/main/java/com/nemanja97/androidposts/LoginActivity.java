@@ -17,6 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     public void loginClick(View view) {
         Intent intent = new Intent(LoginActivity.this, PostsActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

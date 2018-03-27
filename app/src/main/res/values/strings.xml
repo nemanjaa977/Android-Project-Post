@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">AndroidPosts</string>
-    <string name="posts_button">Posts</string>
+    <string name="posts_button">Login</string>
     <string name="create_post_button">Create post</string>
     <string name="read_post_button">Read post</string>
     <string name="settings_button">Settings</string>

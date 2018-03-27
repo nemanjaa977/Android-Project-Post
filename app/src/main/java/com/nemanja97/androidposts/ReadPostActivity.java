@@ -2,6 +2,8 @@ package com.nemanja97.androidposts;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class ReadPostActivity extends AppCompatActivity {
 
@@ -9,6 +11,7 @@ public class ReadPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_post);
+
     }
 
     @Override
