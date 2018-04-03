@@ -9,5 +9,6 @@
     <string name="create_label">Create post </string>
     <string name="read_label">Read post </string>
     <string name="settings_label">Settings </string>
+    <string name="settings">Settings</string>
 
 </resources>
