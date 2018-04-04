@@ -26,41 +26,114 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <EditText
-        android:id="@+id/newTextTitle"
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Title"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/newTextDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Description"/>
+        <!-- The main content view -->
+        <LinearLayout
+            android:id="@+id/mainContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
 
-    <Button
-        android:id="@+id/btnPicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Photos"/>
+            >
 
-    <EditText
-        android:id="@+id/newTextLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Location"/>
+            <EditText
+                android:id="@+id/newTextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Title"/>
 
-    <EditText
-        android:id="@+id/newTextTags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Tag"/>
+            <EditText
+                android:id="@+id/newTextDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"/>
 
-    <Button
-        android:id="@+id/btnOkCreate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ok"/>
+            <Button
+                android:id="@+id/btnPicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Photos"/>
+
+            <EditText
+                android:id="@+id/newTextLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Location"/>
+
+            <EditText
+                android:id="@+id/newTextTags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tag"/>
+
+            <Button
+                android:id="@+id/btnOkCreate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ok"/>
+
+        </LinearLayout>
+
+        <!-- The navigation drawer -->
+        <RelativeLayout
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:id="@+id/drawerPane"
+            android:layout_gravity="start">
+
+            <!-- Profile Box -->
+            <RelativeLayout
+                android:id="@+id/profileBox"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/material_blue_grey_800"
+                android:padding="8dp" >
+
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="15dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/avatar"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="User"
+                        android:textColor="#fff"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- List of Actions (pages) -->
+            <ListView
+                android:id="@+id/navList"
+                android:layout_width="280dp"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/profileBox"
+                android:choiceMode="singleChoice"
+                android:background="#ffffffff" />
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.DrawerLayout>
 
 
 </LinearLayout>

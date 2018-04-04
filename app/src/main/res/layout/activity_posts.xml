@@ -26,27 +26,6 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <Button
-        android:id="@+id/createPostButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/create_post_button"
-        android:onClick="createPostClick"/>
-
-    <Button
-        android:id="@+id/readPostButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/read_post_button"
-        android:onClick="readPostClick"/>
-
-    <Button
-        android:id="@+id/settingsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_button"
-        android:onClick="settingClick"/>
-
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
@@ -54,10 +33,35 @@
         android:orientation="vertical">
 
         <!-- The main content view -->
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/mainContent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+
+            >
+            <Button
+                android:id="@+id/createPostButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_post_button"
+                android:onClick="createPostClick"/>
+
+            <Button
+                android:id="@+id/readPostButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/read_post_button"
+                android:onClick="readPostClick"/>
+
+            <Button
+                android:id="@+id/settingsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_button"
+                android:onClick="settingClick"/>
+        </LinearLayout>
 
         <!-- The navigation drawer -->
         <RelativeLayout
@@ -113,5 +117,6 @@
         </RelativeLayout>
 
     </android.support.v4.widget.DrawerLayout>
+
 
 </LinearLayout>
