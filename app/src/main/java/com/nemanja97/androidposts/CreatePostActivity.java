@@ -1,5 +1,6 @@
 package com.nemanja97.androidposts;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.nemanja97.androidposts.adapters.DrawerListAdapter;
 import com.nemanja97.androidposts.model.NavItem;
@@ -42,6 +44,7 @@ public class CreatePostActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.menu);
         }
 
         prepareMenu(mNavItems);
@@ -80,7 +83,7 @@ public class CreatePostActivity extends AppCompatActivity {
     }
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ){
-        mNavItems.add(new NavItem(getString(R.string.settings), "", R.drawable.ic_launcher_background));
+        mNavItems.add(new NavItem(getString(R.string.settings), "", R.drawable.settings_outline));
         mNavItems.add(new NavItem(getString(R.string.posts_label), "", R.drawable.ic_launcher_background));
 
     }
@@ -97,6 +100,14 @@ public class CreatePostActivity extends AppCompatActivity {
         if(id == R.id.action_setting){
             Intent intent=new Intent(CreatePostActivity.this,SettingsActivity.class);
             startActivity(intent);
+        }else if(id == R.id.action_add){
+            Context c = getBaseContext();
+            Toast toast = Toast.makeText(c,"Click create post.",Toast.LENGTH_SHORT);
+            toast.show();
+        }else if(id == R.id.action_search){
+            Context cc = getBaseContext();
+            Toast toast = Toast.makeText(cc,"Click search post.",Toast.LENGTH_SHORT);
+            toast.show();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -16,7 +16,8 @@ public class Post {
     private Location location;
     private List<Tag> tags;
     private List<Comment> comments;
-    private int likes; private int dislikes;
+    private int likes;
+    private int dislikes;
 
     public Post(int id, String title, String description, Bitmap photo, User author, Date date, Location location, List<Tag> tags, List<Comment> comments, int likes, int dislikes) {
         this.id = id;

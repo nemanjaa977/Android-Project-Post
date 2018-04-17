@@ -22,8 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways">
-        </android.support.v7.widget.Toolbar>
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:titleTextColor="#ffffffff"/>
     </android.support.design.widget.AppBarLayout>
 
 
@@ -48,25 +48,22 @@
                 android:id="@+id/textTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="25dp"
-                android:text="Transformers"/>
+                android:textSize="25dp"/>
 
             <TextView
                 android:id="@+id/textDescription"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Transformers will back one day!"/>
+                android:layout_height="wrap_content" />
 
-            <Button
+            <ImageView
+                android:id="@+id/imagePost"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Photos"/>
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/textTag"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="####tags"/>
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -77,21 +74,18 @@
                     android:id="@+id/textAuthor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
-                    android:text="nemanja22"/>
+                    android:layout_marginRight="15dp"/>
 
                 <TextView
                     android:id="@+id/textDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
-                    android:text="15.08.2018."/>
+                    android:layout_marginRight="15dp"/>
 
                 <TextView
                     android:id="@+id/textLocation"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Novi Sad"/>
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
@@ -99,8 +93,7 @@
                 android:id="@+id/textComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Extra comment!"/>
+                android:layout_marginTop="10dp"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -112,13 +105,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
-                    android:text="Like"/>
+                    android:drawableLeft="@drawable/thumb_up_outline"/>
 
                 <TextView
                     android:id="@+id/textDislike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dislike" />
+                    android:drawableLeft="@drawable/thumb_down_outline"/>
 
             </LinearLayout>
 

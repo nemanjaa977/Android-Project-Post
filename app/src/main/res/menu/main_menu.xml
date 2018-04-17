@@ -6,9 +6,24 @@
         android:id="@+id/action_setting"
         android:orderInCategory="100"
         app:showAsAction="never"
-        android:title="@string/settings">
+        android:title="@string/settings"
+        android:icon="@drawable/settings_outline">
+    </item>
 
+    <item
+        android:id="@+id/action_add"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        android:title=""
+        android:icon="@drawable/plus_circle_outline">
+    </item>
 
+    <item
+        android:id="@+id/action_search"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        android:title=""
+        android:icon="@drawable/magnify">
     </item>
 
 </menu>
