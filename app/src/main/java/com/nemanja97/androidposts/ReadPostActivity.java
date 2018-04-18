@@ -58,7 +58,7 @@ public class ReadPostActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.menu);
         }
 
-        Bitmap b = BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher_background);
+        Bitmap b = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
         User user = new User(1, "Petar", b, "pera", "123", null, null);
         Date date = new Date();
         Post post=new Post(1, "Transformers: The Last Knight", "The Last Knight Official Trailer - Teaser (2017) - Michael Bay Movie", b, user, date, null, null, null, 12, 3);
