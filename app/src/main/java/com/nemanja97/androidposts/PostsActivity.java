@@ -3,6 +3,8 @@ package com.nemanja97.androidposts;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,9 +22,13 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.nemanja97.androidposts.adapters.DrawerListAdapter;
+import com.nemanja97.androidposts.adapters.ListViewAdapter;
 import com.nemanja97.androidposts.model.NavItem;
+import com.nemanja97.androidposts.model.Post;
+import com.nemanja97.androidposts.model.User;
 
 
 public class PostsActivity extends AppCompatActivity {
@@ -82,11 +88,32 @@ public class PostsActivity extends AppCompatActivity {
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
+
+        Bitmap b = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+        User user = new User(1, "Petar", b, "pera", "123", null, null);
+        Date date = new Date();
+        Post post=new Post(1, "Transformers: The Last Knight", "The Last Knight Official Trailer - Teaser (2017) - Michael Bay Movie", b, user, date, null, null, null, 12, 3);
+
+        ArrayList<Post> posts = new ArrayList<>();
+        posts.add(post);
+
+        ListView listVieww = findViewById(R.id.listPost);
+
+        ListViewAdapter listViewAdapter = new ListViewAdapter(this, posts);
+        listVieww.setAdapter(listViewAdapter);
+        listVieww.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent openReadPost = new Intent(PostsActivity.this, ReadPostActivity.class);
+                startActivity(openReadPost);
+            }
+        });
+
     }
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ){
         mNavItems.add(new NavItem(getString(R.string.settings), "", R.drawable.settings_outline));
-        mNavItems.add(new NavItem(getString(R.string.posts_label), "", R.drawable.ic_launcher_background));
+        mNavItems.add(new NavItem(getString(R.string.create_label), "", R.drawable.plus_circle_outline));
 
     }
 
@@ -134,7 +161,7 @@ public class PostsActivity extends AppCompatActivity {
             Intent preference = new Intent(PostsActivity.this,SettingsActivity.class);
             startActivity(preference);
         }else if(position == 1){
-            Intent preference = new Intent(PostsActivity.this,PostsActivity.class);
+            Intent preference = new Intent(PostsActivity.this,CreatePostActivity.class);
             startActivity(preference);
         }else{
             Log.e("DRAWER", "Nesto van opsega!");
@@ -148,20 +175,20 @@ public class PostsActivity extends AppCompatActivity {
         mDrawerLayout.closeDrawer(mDrawerPane);
     }
 
-    public void createPostClick(View view) {
-        Intent intent = new Intent(PostsActivity.this, CreatePostActivity.class);
-        startActivity(intent);
-    }
-
-    public void readPostClick(View view) {
-        Intent intent = new Intent(PostsActivity.this, ReadPostActivity.class);
-        startActivity(intent);
-    }
-
-    public void settingClick(View view) {
-        Intent intent = new Intent(PostsActivity.this, SettingsActivity.class);
-        startActivity(intent);
-    }
+//    public void createPostClick(View view) {
+//        Intent intent = new Intent(PostsActivity.this, CreatePostActivity.class);
+//        startActivity(intent);
+//    }
+//
+//    public void readPostClick(View view) {
+//        Intent intent = new Intent(PostsActivity.this, ReadPostActivity.class);
+//        startActivity(intent);
+//    }
+//
+//    public void settingClick(View view) {
+//        Intent intent = new Intent(PostsActivity.this, SettingsActivity.class);
+//        startActivity(intent);
+//    }
 
     @Override
     protected void onResume() {
