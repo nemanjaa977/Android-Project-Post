@@ -13,10 +13,20 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-    <string name="pref_sort_title">Sort</string>
-    <string name="pref_sort_by_date">Sort by date</string>
-    <string name="pref_sort_by_popularity">Sort by popularity</string>
-    <string name="pref_sort_by_date_summary">New posts first</string>
-    <string name="pref_sort_by_popularity_summary">Most viewed posts first</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sort_post">Sort post</string>
+    <string name="sort_post_key">sort_post_key</string>
+    <string name="sort_by_date">Sort by date</string>
+    <string name="posts_by_date_summary">Sort posts by date</string>
+    <string name="prefer_sort_post_date_key">prefer_sort_post_date_key</string>
+    <string name="Sort_by_popularity">Sort by popularity</string>
+    <string name="Sort_posts_by_popularity">Sort posts by popularity</string>
+    <string name="sort_post_popularity_key">sort_post_popularity_key</string>
+    <string name="Sort_comments">Sort comment</string>
+    <string name="sort_comments_key">sort_comments_key</string>
+    <string name="sort_comment_by_date">Sort comment by date</string>
+    <string name="sort_comment_date_key">sort_comment_date_key</string>
+    <string name="sort_comments_by_popularity">Sort comments by popularity</string>
+    <string name="sort_comment_popularity_key">sort_comment_popularity_key</string>
 
 </resources>

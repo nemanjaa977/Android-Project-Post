@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <PreferenceCategory
-        android:title="@string/pref_sort_title"
-        android:key="pref_sort_settings">
+        android:title="@string/sort_post"
+        android:key="@string/sort_post_key">
 
         <CheckBoxPreference
-            android:key="pref_sort_by_date"
-            android:title="@string/pref_sort_by_date"
-            android:summary="@string/pref_sort_by_date_summary"
-            android:defaultValue="false" />
-
+            android:defaultValue="false"
+            android:title="@string/sort_by_date"
+            android:summary="@string/posts_by_date_summary"
+            android:key="@string/prefer_sort_post_date_key"
+            />
         <CheckBoxPreference
-            android:key="pref_sort_by_popularity"
-            android:title="@string/pref_sort_by_popularity"
-            android:summary="@string/pref_sort_by_popularity_summary"
-            android:defaultValue="true" />
+            android:title="@string/Sort_by_popularity"
+            android:summary="@string/Sort_posts_by_popularity"
+            android:key="@string/sort_post_popularity_key"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/Sort_comments"
+        android:key="@string/sort_comments_key">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:title="@string/sort_by_date"
+            android:summary="@string/sort_comment_by_date"
+            android:key="@string/sort_comment_date_key"
+            />
+        <CheckBoxPreference
+            android:title="@string/Sort_by_popularity"
+            android:summary="@string/sort_comments_by_popularity"
+            android:key="@string/sort_comment_popularity_key"/>
 
     </PreferenceCategory>
 </PreferenceScreen>
