@@ -13,4 +13,10 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
+    <string name="pref_sort_title">Sort</string>
+    <string name="pref_sort_by_date">Sort by date</string>
+    <string name="pref_sort_by_popularity">Sort by popularity</string>
+    <string name="pref_sort_by_date_summary">New posts first</string>
+    <string name="pref_sort_by_popularity_summary">Most viewed posts first</string>
+
 </resources>
