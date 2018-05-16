@@ -2,6 +2,7 @@ package com.nemanja97.androidposts;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.view.ViewPager;
@@ -42,6 +43,7 @@ public class ReadPostActivity extends AppCompatActivity {
     private RelativeLayout mDrawerPane;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
+    private SharedPreferences sharedPreferences;
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
 
     @Override
@@ -136,6 +138,7 @@ public class ReadPostActivity extends AppCompatActivity {
     private void prepareMenu(ArrayList<NavItem> mNavItems ){
         mNavItems.add(new NavItem(getString(R.string.settings), "", R.drawable.settings_outline));
         mNavItems.add(new NavItem(getString(R.string.posts_label), "", R.drawable.ic_launcher_background));
+        mNavItems.add(new NavItem("Log out", "", R.drawable.ic_launcher_background));
 
     }
 
@@ -177,6 +180,11 @@ public class ReadPostActivity extends AppCompatActivity {
         }else if(position == 1){
             Intent preference = new Intent(ReadPostActivity.this,PostsActivity.class);
             startActivity(preference);
+        }else if(position == 2){
+            Intent intent = new Intent(ReadPostActivity.this,LoginActivity.class);
+            sharedPreferences.edit().clear().commit();
+            startActivity(intent);
+            finish();
         }else{
             Log.e("DRAWER", "Nesto van opsega!");
         }

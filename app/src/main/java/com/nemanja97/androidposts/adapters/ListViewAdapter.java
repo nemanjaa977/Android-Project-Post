@@ -29,11 +29,11 @@ public class ListViewAdapter extends ArrayAdapter<Post> {
         convertView = inflater.inflate(R.layout.list_view_items, null);
         TextView title = (TextView) convertView.findViewById(R.id.title_list);
         ImageView image = (ImageView) convertView.findViewById(R.id.image_list);
-        TextView desc = (TextView) convertView.findViewById(R.id.description_list);
+//        TextView desc = (TextView) convertView.findViewById(R.id.description_list);
 
         title.setText(post.getTitle());
-        image.setImageResource(R.mipmap.ic_launcher_round);
-        desc.setText(post.getDescription());
+        image.setImageResource(R.mipmap.transformers5);
+//        desc.setText(post.getDescription());
 
         return convertView;
     }

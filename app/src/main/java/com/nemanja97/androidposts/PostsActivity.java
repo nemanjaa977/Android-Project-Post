@@ -99,20 +99,21 @@ public class PostsActivity extends AppCompatActivity {
             }
         };
 
-        Bitmap b = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+        Bitmap b = BitmapFactory.decodeResource(getResources(),R.mipmap.transformers5);
+        Bitmap b2 = BitmapFactory.decodeResource(getResources(),R.mipmap.fast7);
         User user = new User(1, "Petar", b, "pera", "123", null, null);
         User user2 = new User(2, "Aljosa", b, "aljosa", "12345", null, null);
         Date date = new Date();
         Date date2 = new Date();
-        post1=new Post(1, "Transformers: The Last Knight", "The Last Knight Official Trailer - Teaser (2017) - Michael Bay Movie", b, user, date, null, null, null, 12, 3);
-        post2=new Post(2, "Fast & Furious 8 ", "On the heels of 2015’s Fast & Furious 7", b, user2, date2, null, null, null, 11, 1);
+        post1=new Post(1, "Transformers: The Last Knight", null, b, user, date, null, null, null, 12, 3);
+        post2=new Post(2, "Fast & Furious 8 ", null, b2, user2, date2, null, null, null, 11, 1);
 
         posts.add(post1);
         posts.add(post2);
 
         ListView listVieww = findViewById(R.id.listPost);
 
-        ListViewAdapter listViewAdapter = new ListViewAdapter(this, posts);
+        listViewAdapter = new ListViewAdapter(this, posts);
         listVieww.setAdapter(listViewAdapter);
         listVieww.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -171,6 +172,7 @@ public class PostsActivity extends AppCompatActivity {
     private void prepareMenu(ArrayList<NavItem> mNavItems ){
         mNavItems.add(new NavItem(getString(R.string.settings), "", R.drawable.settings_outline));
         mNavItems.add(new NavItem(getString(R.string.create_label), "", R.drawable.plus_circle_outline));
+        mNavItems.add(new NavItem("Log out", "", R.drawable.ic_launcher_background));
 
     }
 
@@ -217,9 +219,14 @@ public class PostsActivity extends AppCompatActivity {
         if(position == 0){
             Intent preference = new Intent(PostsActivity.this,SettingsActivity.class);
             startActivity(preference);
-        }else if(position == 1){
-            Intent preference = new Intent(PostsActivity.this,CreatePostActivity.class);
+        }else if(position == 1) {
+            Intent preference = new Intent(PostsActivity.this, CreatePostActivity.class);
             startActivity(preference);
+        }else if(position == 2){
+            Intent intent = new Intent(PostsActivity.this,LoginActivity.class);
+            sharedPreferences.edit().clear().commit();
+            startActivity(intent);
+            finish();
         }else{
             Log.e("DRAWER", "Nesto van opsega!");
         }
@@ -265,6 +272,8 @@ public class PostsActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+//        finish();
+//        startActivity(getIntent());
     }
 
     @Override
