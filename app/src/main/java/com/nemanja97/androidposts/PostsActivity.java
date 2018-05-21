@@ -26,12 +26,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
+import com.google.gson.Gson;
 import com.nemanja97.androidposts.adapters.DrawerListAdapter;
 import com.nemanja97.androidposts.adapters.ListViewAdapter;
 import com.nemanja97.androidposts.model.NavItem;
 import com.nemanja97.androidposts.model.Post;
 import com.nemanja97.androidposts.model.User;
+import com.nemanja97.androidposts.service.PostService;
+import com.nemanja97.androidposts.service.ServiceUtils;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class PostsActivity extends AppCompatActivity {
@@ -44,12 +52,14 @@ public class PostsActivity extends AppCompatActivity {
     private CharSequence mTitle;
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
     private ListViewAdapter listViewAdapter;
-    ArrayList<Post> posts=new ArrayList<>();
+    List<Post> posts;
     private Post post1;
     private Post post2;
     private SharedPreferences sharedPreferences;
     private boolean sortPostByDate;
     private boolean sortPostByPopularity;
+    private PostService postService;
+    private ListView listVieww;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,75 +109,97 @@ public class PostsActivity extends AppCompatActivity {
             }
         };
 
-        Bitmap b = BitmapFactory.decodeResource(getResources(),R.mipmap.transformers5);
-        Bitmap b2 = BitmapFactory.decodeResource(getResources(),R.mipmap.fast7);
-        User user = new User(1, "Petar", b, "pera", "123", null, null);
-        User user2 = new User(2, "Aljosa", b, "aljosa", "12345", null, null);
-        Date date = new Date();
-        Date date2 = new Date();
-        post1=new Post(1, "Transformers: The Last Knight", null, b, user, date, null, null, null, 12, 3);
-        post2=new Post(2, "Fast & Furious 8 ", null, b2, user2, date2, null, null, null, 11, 1);
+//        Bitmap b = BitmapFactory.decodeResource(getResources(),R.mipmap.transformers5);
+//        Bitmap b2 = BitmapFactory.decodeResource(getResources(),R.mipmap.fast7);
+//        User user = new User(1, "Petar", b, "pera", "123", null, null);
+//        User user2 = new User(2, "Aljosa", b, "aljosa", "12345", null, null);
+//        Date date = new Date();
+//        Date date2 = new Date();
+//        post1=new Post(1, "Transformers: The Last Knight", null, b, user, date, null, null, null, 12, 3);
+//        post2=new Post(2, "Fast & Furious 8 ", null, b2, user2, date2, null, null, null, 11, 1);
+//
+//        posts.add(post1);
+//        posts.add(post2);
 
-        posts.add(post1);
-        posts.add(post2);
+          listVieww= findViewById(R.id.listPost);
 
-        ListView listVieww = findViewById(R.id.listPost);
+//        listViewAdapter = new ListViewAdapter(this, posts);
+//        listVieww.setAdapter(listViewAdapter);
+//
 
-        listViewAdapter = new ListViewAdapter(this, posts);
-        listVieww.setAdapter(listViewAdapter);
+        sharedPreferences= getSharedPreferences("MyPref",Context.MODE_PRIVATE);
+
+        postService = ServiceUtils.postService;
+
+        Call call = postService.getAll();
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                posts = response.body();
+                listViewAdapter = new ListViewAdapter(getApplicationContext(), posts);
+                listVieww.setAdapter(listViewAdapter);
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
+
+
         listVieww.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Post post=posts.get(position);
                 Intent openReadPost = new Intent(PostsActivity.this, ReadPostActivity.class);
+                openReadPost.putExtra("Post",new Gson().toJson(post));
                 startActivity(openReadPost);
             }
         });
-
-        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
-        consultPreference();
+//        consultPreference();
 
     }
 
-    private void consultPreference(){
-        sortPostByDate=sharedPreferences.getBoolean(getString(R.string.prefer_sort_post_date_key),false);
-        sortPostByPopularity=sharedPreferences.getBoolean(getString(R.string.sort_post_popularity_key),false);
+//    private void consultPreference(){
+//        sortPostByDate=sharedPreferences.getBoolean(getString(R.string.prefer_sort_post_date_key),false);
+//        sortPostByPopularity=sharedPreferences.getBoolean(getString(R.string.sort_post_popularity_key),false);
+//
+//        if(sortPostByDate == true){
+//            sortDate();
+//        }
+//        if(sortPostByPopularity == true){
+//            sortByPopularity();
+//        }
+//    }
 
-        if(sortPostByDate == true){
-            sortDate();
-        }
-        if(sortPostByPopularity == true){
-            sortByPopularity();
-        }
-    }
+//    public void sortDate(){
+//        Collections.sort(posts, new Comparator<Post>() {
+//            @Override
+//            public int compare(Post post, Post t1) {
+//                return post1.getDate().compareTo(post.getDate());
+//            }
+//        });
+//
+//
+//        listViewAdapter.notifyDataSetChanged();
+//    }
 
-    public void sortDate(){
-        Collections.sort(posts, new Comparator<Post>() {
-            @Override
-            public int compare(Post post, Post t1) {
-                return post1.getDate().compareTo(post.getDate());
-            }
-        });
-
-
-        listViewAdapter.notifyDataSetChanged();
-    }
-
-    public void sortByPopularity(){
-
-        Collections.sort(posts, new Comparator<Post>() {
-            @Override
-            public int compare(Post post, Post t1) {
-                int first;
-                int second ;
-                first = post.getLikes() - post.getDislikes();
-                second = post1.getLikes() - post1.getDislikes();
-                return Integer.valueOf(second).compareTo(first);
-            }
-        });
-
-
-        listViewAdapter.notifyDataSetChanged();
-    }
+//    public void sortByPopularity(){
+//
+//        Collections.sort(posts, new Comparator<Post>() {
+//            @Override
+//            public int compare(Post post, Post t1) {
+//                int first;
+//                int second ;
+//                first = post.getLikes() - post.getDislikes();
+//                second = post1.getLikes() - post1.getDislikes();
+//                return Integer.valueOf(second).compareTo(first);
+//            }
+//        });
+//
+//
+//        listViewAdapter.notifyDataSetChanged();
+//    }
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ){
         mNavItems.add(new NavItem(getString(R.string.settings), "", R.drawable.settings_outline));
@@ -185,18 +217,12 @@ public class PostsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id=item.getItemId();
-        if(id == R.id.action_setting){
-            Intent intent=new Intent(PostsActivity.this,SettingsActivity.class);
-            startActivity(intent);
-        }else if(id == R.id.action_add){
+        if(id == R.id.action_add){
             Context c = getBaseContext();
             Toast toast = Toast.makeText(c,"Click create post.",Toast.LENGTH_SHORT);
             toast.show();
-        }
-        else if(id == R.id.action_search){
-            Context cc = getBaseContext();
-            Toast toast = Toast.makeText(cc,"Click search post.",Toast.LENGTH_SHORT);
-            toast.show();
+            Intent intent = new Intent(PostsActivity.this, CreatePostActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

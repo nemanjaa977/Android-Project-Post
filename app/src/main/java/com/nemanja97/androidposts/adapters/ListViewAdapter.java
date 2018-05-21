@@ -14,10 +14,11 @@ import com.nemanja97.androidposts.R;
 import com.nemanja97.androidposts.model.Post;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListViewAdapter extends ArrayAdapter<Post> {
 
-    public ListViewAdapter(Context context, ArrayList<Post> posts){
+    public ListViewAdapter(Context context, List<Post> posts){
         super(context,0,posts);
     }
 
@@ -32,7 +33,7 @@ public class ListViewAdapter extends ArrayAdapter<Post> {
 //        TextView desc = (TextView) convertView.findViewById(R.id.description_list);
 
         title.setText(post.getTitle());
-        image.setImageResource(R.mipmap.transformers5);
+//        image.setImageResource(R.mipmap.transformers5);
 //        desc.setText(post.getDescription());
 
         return convertView;

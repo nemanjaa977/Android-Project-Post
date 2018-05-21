@@ -3,20 +3,40 @@ package com.nemanja97.androidposts.model;
 import android.graphics.Bitmap;
 import android.location.Location;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Post {
+public class Post implements Serializable {
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("title")
+    @Expose
     private String title;
+    @SerializedName("description")
+    @Expose
     private String description;
+    @SerializedName("photo")
+    @Expose
     private Bitmap photo;
+    @SerializedName("userDTO")
+    @Expose
     private User author;
+    @SerializedName("date")
+    @Expose
     private Date date;
     private Location location;
     private List<Tag> tags;
     private List<Comment> comments;
+    @SerializedName("like")
+    @Expose
     private int likes;
+    @SerializedName("dislike")
+    @Expose
     private int dislikes;
 
     public Post(int id, String title, String description, Bitmap photo, User author, Date date, Location location, List<Tag> tags, List<Comment> comments, int likes, int dislikes) {

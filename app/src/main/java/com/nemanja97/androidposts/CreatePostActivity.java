@@ -51,6 +51,8 @@ public class CreatePostActivity extends AppCompatActivity {
 
         prepareMenu(mNavItems);
 
+        sharedPreferences= getSharedPreferences("MyPref",Context.MODE_PRIVATE);
+
         mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerList = (ListView) findViewById(R.id.navList);
@@ -100,16 +102,13 @@ public class CreatePostActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id=item.getItemId();
-        if(id == R.id.action_setting){
-            Intent intent=new Intent(CreatePostActivity.this,SettingsActivity.class);
-            startActivity(intent);
-        }else if(id == R.id.action_add){
+        if(id == R.id.okCreatePostAction){
             Context c = getBaseContext();
             Toast toast = Toast.makeText(c,"Click create post.",Toast.LENGTH_SHORT);
             toast.show();
-        }else if(id == R.id.action_search){
-            Context cc = getBaseContext();
-            Toast toast = Toast.makeText(cc,"Click search post.",Toast.LENGTH_SHORT);
+        }else if(id == R.id.dontCreatePostAction){
+            Context c = getBaseContext();
+            Toast toast = Toast.makeText(c,"Click don't create post.",Toast.LENGTH_SHORT);
             toast.show();
         }
         return super.onOptionsItemSelected(item);
@@ -118,7 +117,7 @@ public class CreatePostActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
+        inflater.inflate(R.menu.create_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

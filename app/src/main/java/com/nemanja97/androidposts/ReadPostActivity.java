@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.nemanja97.androidposts.adapters.DrawerListAdapter;
 import com.nemanja97.androidposts.model.Comment;
 import com.nemanja97.androidposts.model.NavItem;
@@ -31,6 +32,7 @@ import com.nemanja97.androidposts.model.Post;
 import com.nemanja97.androidposts.model.Tag;
 import com.nemanja97.androidposts.model.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +47,7 @@ public class ReadPostActivity extends AppCompatActivity {
     private CharSequence mTitle;
     private SharedPreferences sharedPreferences;
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
+    private String jsonMyObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,22 +64,27 @@ public class ReadPostActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.menu);
         }
 
-        Bitmap b = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
-        User user = new User(1, "Petar", b, "pera", "123", null, null);
-        Date date = new Date();
-        Post post=new Post(1, "Transformers: The Last Knight", "The Last Knight Official Trailer - Teaser (2017) - Michael Bay Movie", b, user, date, null, null, null, 12, 3);
-        List<Post> posts = new ArrayList<Post>();
-        posts.add(post);
+        sharedPreferences= getSharedPreferences("MyPref",Context.MODE_PRIVATE);
 
-        Tag tag = new Tag(1, "#good", posts);
-        List<Tag> tags = new ArrayList<Tag>();
-        tags.add(tag);
-        post.setTags(tags);
+//        Bitmap b = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+//        User user = new User(1, "Petar", b, "pera", "123", null, null);
+//        Date date = new Date();
+//        Post post=new Post(1, "Transformers: The Last Knight", "The Last Knight Official Trailer - Teaser (2017) - Michael Bay Movie", b, user, date, null, null, null, 12, 3);
+//        List<Post> posts = new ArrayList<Post>();
+//        posts.add(post);
+//
+//        Tag tag = new Tag(1, "#good", posts);
+//        List<Tag> tags = new ArrayList<Tag>();
+//        tags.add(tag);
+//        post.setTags(tags);
+//
+//        Comment comm = new Comment(1,"okComment","Is this the last transformers movies or last movie directed by Michael Bay?",user,date,post,4,3,null);
+//        List<Comment> comme = new ArrayList<Comment>();
+//        comme.add(comm);
+//        post.setComments(comme);
 
-        Comment comm = new Comment(1,"okComment","Is this the last transformers movies or last movie directed by Michael Bay?",user,date,post,4,3,null);
-        List<Comment> comme = new ArrayList<Comment>();
-        comme.add(comm);
-        post.setComments(comme);
+        jsonMyObject = getIntent().getStringExtra("Post");
+        Post post = new Gson().fromJson(jsonMyObject, Post.class);
 
         TextView tv = (TextView)findViewById(R.id.textTitle);
         tv.setText(post.getTitle());
@@ -85,19 +93,23 @@ public class ReadPostActivity extends AppCompatActivity {
         ImageView im = (ImageView) findViewById(R.id.imagePost);
         im.setImageBitmap(post.getPhoto());
         TextView tt = (TextView)findViewById(R.id.textTag);
-        tt.setText(post.getTags().get(0).getName());
+      //  tt.setText(post.getTags().get(0).getName());
         TextView tu = (TextView)findViewById(R.id.textAuthor);
         tu.setText(post.getAuthor().getUsername());
         TextView tdate = (TextView)findViewById(R.id.textDate);
-        tdate.setText(post.getDate().toString());
+        String printDate=new SimpleDateFormat("dd.MM.yyyy").format(post.getDate());
+        tdate.setText(printDate);
         TextView tl = (TextView)findViewById(R.id.textLocation);
         tl.setText("");
         TextView tc = (TextView)findViewById(R.id.textComment);
-        tc.setText(post.getComments().get(0).getDescription());
+       // tc.setText(post.getComments().get(0).getDescription());
         TextView tlike = (TextView)findViewById(R.id.textLike);
         tlike.setText(String.valueOf(post.getLikes()));
         TextView tdislike = (TextView)findViewById(R.id.textDislike);
         tdislike.setText(String.valueOf(post.getDislikes()));
+
+
+
 
         prepareMenu(mNavItems);
 
@@ -151,16 +163,9 @@ public class ReadPostActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id=item.getItemId();
-        if(id == R.id.action_setting){
-            Intent intent=new Intent(ReadPostActivity.this,SettingsActivity.class);
-            startActivity(intent);
-        }else if(id == R.id.action_add){
+        if(id == R.id.deletePost){
             Context c = getBaseContext();
-            Toast toast = Toast.makeText(c,"Click create post.",Toast.LENGTH_SHORT);
-            toast.show();
-        }else if(id == R.id.action_search){
-            Context cc = getBaseContext();
-            Toast toast = Toast.makeText(cc,"Click search post.",Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(c,"Click delete post.",Toast.LENGTH_SHORT);
             toast.show();
         }
         return super.onOptionsItemSelected(item);
@@ -200,7 +205,7 @@ public class ReadPostActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
+        inflater.inflate(R.menu.read_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

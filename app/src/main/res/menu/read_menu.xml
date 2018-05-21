@@ -3,13 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_add"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
+        android:id="@+id/deletePost"
         android:title=""
-        android:icon="@drawable/plus_circle_outline">
-    </item>
-
+        app:showAsAction="ifRoom"
+        android:orderInCategory="100"
+        android:icon="@drawable/delete"
+        />
 
 
 </menu>
