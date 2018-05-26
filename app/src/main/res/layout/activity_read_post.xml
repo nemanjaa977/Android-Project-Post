@@ -34,6 +34,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <!-- The main content view -->
         <LinearLayout
             android:id="@+id/mainContent"
@@ -57,8 +60,9 @@
 
             <ImageView
                 android:id="@+id/imagePost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="250dp"
+                android:layout_height="150dp"
+                android:background="#333"/>
 
             <TextView
                 android:id="@+id/textTag"
@@ -89,33 +93,67 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textComment"
+            <!--<TextView-->
+                <!--android:id="@+id/textComment"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="10dp"/>-->
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"/>
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/addNewComment"
+                    android:hint="Add new comment..."/>
+                <Button
+                    android:id="@+id/addNewCommentButton"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:text="ok"
+                    android:textColor="#333"
+                    android:onClick="addNewComment"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/clickLikeButton"
+                    android:src="@drawable/thumb_up_outline"
+                    android:onClick="addNewLike"/>
                 <TextView
                     android:id="@+id/textLike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
-                    android:drawableLeft="@drawable/thumb_up_outline"/>
+                    />
 
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/clickDisLikeButton"
+                    android:src="@drawable/thumb_down_outline"
+                    android:onClick="addNewDislike"/>
                 <TextView
                     android:id="@+id/textDislike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/thumb_down_outline"/>
+
+                    />
 
             </LinearLayout>
 
         </LinearLayout>
+        </ScrollView>
 
         <!-- The navigation drawer -->
         <RelativeLayout

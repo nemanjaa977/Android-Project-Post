@@ -2,18 +2,44 @@ package com.nemanja97.androidposts.model;
 
 import android.os.AsyncTask;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Comment {
+public class Comment implements Serializable {
+
+    @SerializedName(value="id")
+    @Expose
     private int id;
+    @SerializedName(value="title")
+    @Expose
     private String title;
+    @SerializedName(value="description")
+    @Expose
     private String description;
+    @SerializedName(value="userDTO")
+    @Expose
     private User author;
+    @SerializedName(value="date")
+    @Expose
     private Date date;
+    @SerializedName(value="postDTO")
+    @Expose
     private Post post;
+    @SerializedName(value="like")
+    @Expose
     private int likes;
+    @SerializedName(value="dislike")
+    @Expose
     private int dislikes;
     private AsyncTask.Status status;
+
+
+    public  Comment(){
+
+    }
 
     public Comment(int id, String title, String description, User author, Date date, Post post, int likes, int dislikes, AsyncTask.Status status) {
         this.id = id;

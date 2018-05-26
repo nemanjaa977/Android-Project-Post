@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.nemanja97.androidposts.model.User;
 import com.nemanja97.androidposts.service.ServiceUtils;
 import com.nemanja97.androidposts.service.UserService;
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 {
                     if(user.getUsername().equals(username) && user.getPassword().equals(password)){
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("logovani", user.getUsername());
+                        editor.putString("logovani", new Gson().toJson(user));
                         editor.commit();
                         Intent intent = new Intent(LoginActivity.this,PostsActivity.class);
                         startActivity(intent);
