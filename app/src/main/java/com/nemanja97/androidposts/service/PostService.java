@@ -25,9 +25,6 @@ public interface PostService {
     @GET("posts")
     Call<List<Post>> getAll();
 
-    @GET("posts/comment/{id}")
-    Call<List<Post>> getPostOneComment(@Path("id")Integer id);
-
     @POST("posts")
     Call<Post> createPost(@Body Post post);
 
@@ -35,7 +32,7 @@ public interface PostService {
     Call<Void> deletePost(@Path("id") Integer id);
 
     @PUT("posts/{id}")
-    Call<Post> updatePost(@Path("id") Integer id);
+    Call<Post> updatePost(@Body Post post, @Path("id") Integer id);
 
 
 }

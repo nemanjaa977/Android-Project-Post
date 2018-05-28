@@ -109,23 +109,7 @@ public class PostsActivity extends AppCompatActivity {
             }
         };
 
-//        Bitmap b = BitmapFactory.decodeResource(getResources(),R.mipmap.transformers5);
-//        Bitmap b2 = BitmapFactory.decodeResource(getResources(),R.mipmap.fast7);
-//        User user = new User(1, "Petar", b, "pera", "123", null, null);
-//        User user2 = new User(2, "Aljosa", b, "aljosa", "12345", null, null);
-//        Date date = new Date();
-//        Date date2 = new Date();
-//        post1=new Post(1, "Transformers: The Last Knight", null, b, user, date, null, null, null, 12, 3);
-//        post2=new Post(2, "Fast & Furious 8 ", null, b2, user2, date2, null, null, null, 11, 1);
-//
-//        posts.add(post1);
-//        posts.add(post2);
-
           listVieww= findViewById(R.id.listPost);
-
-//        listViewAdapter = new ListViewAdapter(this, posts);
-//        listVieww.setAdapter(listViewAdapter);
-//
 
         sharedPreferences= getSharedPreferences("MyPref",Context.MODE_PRIVATE);
 
@@ -264,21 +248,6 @@ public class PostsActivity extends AppCompatActivity {
         }
         mDrawerLayout.closeDrawer(mDrawerPane);
     }
-
-//    public void createPostClick(View view) {
-//        Intent intent = new Intent(PostsActivity.this, CreatePostActivity.class);
-//        startActivity(intent);
-//    }
-//
-//    public void readPostClick(View view) {
-//        Intent intent = new Intent(PostsActivity.this, ReadPostActivity.class);
-//        startActivity(intent);
-//    }
-//
-//    public void settingClick(View view) {
-//        Intent intent = new Intent(PostsActivity.this, SettingsActivity.class);
-//        startActivity(intent);
-//    }
 
     @Override
     protected void onResume() {

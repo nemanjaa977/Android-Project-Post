@@ -93,11 +93,6 @@
 
             </LinearLayout>
 
-            <!--<TextView-->
-                <!--android:id="@+id/textComment"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"/>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -124,33 +119,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <ImageButton
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/clickLikeButton"
-                    android:src="@drawable/thumb_up_outline"
-                    android:onClick="addNewLike"/>
+                    android:onClick="addNewLike"
+                    android:text="like"/>
                 <TextView
-                    android:id="@+id/textLike"
+                    android:id="@+id/textLikePost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
+                    android:textSize="25dp"
                     />
 
-                <ImageButton
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/clickDisLikeButton"
-                    android:src="@drawable/thumb_down_outline"
+                    android:text="dislike"
                     android:onClick="addNewDislike"/>
                 <TextView
                     android:id="@+id/textDislike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:textSize="25dp"
                     />
 
             </LinearLayout>
+
+            <ListView
+                android:id="@+id/listComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
 
         </LinearLayout>
         </ScrollView>

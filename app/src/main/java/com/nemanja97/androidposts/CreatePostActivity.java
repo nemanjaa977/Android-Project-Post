@@ -51,6 +51,7 @@ public class CreatePostActivity extends AppCompatActivity {
     private PostService postService;
     private EditText text_title;
     private EditText text_description;
+    private EditText text_tag;
     private UserService userService;
     private User logged;
     private String userJson;
@@ -108,6 +109,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
         text_title = findViewById(R.id.newTextTitle);
         text_description = findViewById(R.id.newTextDescription);
+        text_tag = findViewById(R.id.newTextTags);
     }
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ){
@@ -184,6 +186,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
         String title = text_title.getText().toString();
         String description = text_description.getText().toString();
+        String tag = text_tag.getText().toString();
 
         post.setTitle(title);
         post.setDescription(description);

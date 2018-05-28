@@ -29,7 +29,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.nemanja97.androidposts.adapters.CommentAdapter;
 import com.nemanja97.androidposts.adapters.DrawerListAdapter;
+import com.nemanja97.androidposts.adapters.ListViewAdapter;
 import com.nemanja97.androidposts.model.Comment;
 import com.nemanja97.androidposts.model.NavItem;
 import com.nemanja97.androidposts.model.Post;
@@ -61,19 +63,20 @@ public class ReadPostActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
     private String jsonMyObject;
+    private String jsonComment;
     private CommentService commentService;
     List<Comment> comments;
     private PostService postService;
     private EditText text_new_comment;
     private int postID;
     private LinearLayout linearLayout;
-    private UserService userService;
     private User logged;
     private String userJson;
-    private String post_like;
-    private String post_dislike;
-    private int commentID;
     private Post post;
+    private CommentAdapter listCommentAdapter;
+    private ListView listVieww;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +99,7 @@ public class ReadPostActivity extends AppCompatActivity {
         linearLayout =(LinearLayout)findViewById(R.id.mainContent);
 
         jsonMyObject = getIntent().getStringExtra("Post");
-         post = new Gson().fromJson(jsonMyObject, Post.class);
+        post = new Gson().fromJson(jsonMyObject, Post.class);
         postID=post.getId();
 
         TextView tv = (TextView)findViewById(R.id.textTitle);
@@ -115,51 +118,8 @@ public class ReadPostActivity extends AppCompatActivity {
         TextView tl = (TextView)findViewById(R.id.textLocation);
         tl.setText("");
 
-        commentService = ServiceUtils.commentService;
-        Call call = commentService.getAllComment(postID);
 
-        postService=ServiceUtils.postService;
-        Call calll = postService.getPostOneComment(commentID); // sta sa ovim!!!!!!!!
-
-        call.enqueue(new Callback<List<Comment>>() {
-            @Override
-            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
-                comments = response.body();
-                for( Comment c:comments )
-                {
-                    TextView textView = new TextView(getApplicationContext());
-                    textView.setText(c.getDescription());
-                    textView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    linearLayout.addView(textView);
-
-                    if (logged.getUsername() != c.getAuthor().getUsername()) {
-
-
-                        Button button = new Button(getApplicationContext());
-                        button.setText("Delete comment");
-                        button.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                        button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                deleteComment(commentID);
-                                Context c = getBaseContext();
-                                Toast toast = Toast.makeText(c, "Delete comment.", Toast.LENGTH_SHORT);
-                                toast.show();
-                            }
-                        });
-                        button.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                        linearLayout.addView(button);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-
-            }
-        });
-
-        TextView tlike = (TextView)findViewById(R.id.textLike);
+        TextView tlike = (TextView)findViewById(R.id.textLikePost);
         tlike.setText(String.valueOf(post.getLikes()));
         TextView tdislike = (TextView)findViewById(R.id.textDislike);
         tdislike.setText(String.valueOf(post.getDislikes()));
@@ -201,6 +161,25 @@ public class ReadPostActivity extends AppCompatActivity {
 
         invalidateOptionsMenu();
 
+
+        listVieww= findViewById(R.id.listComment);
+
+        commentService = ServiceUtils.commentService;
+        Call call = commentService.getAllComment(postID);
+
+        call.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                comments = response.body();
+                listCommentAdapter = new CommentAdapter(getApplicationContext(), comments);
+                listVieww.setAdapter(listCommentAdapter);
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
     }
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ){
@@ -226,18 +205,54 @@ public class ReadPostActivity extends AppCompatActivity {
     }
 
     public void addNewLike(View view) {
-        TextView like=(TextView) view.findViewById(R.id.textLike);
-        post_like = like.getText().toString();
-        int brojLajkova = Integer.parseInt(post_like) + 1;
-        like.setText(brojLajkova);
 
+        if (logged.getUsername().equals(post.getAuthor().getUsername())){
+            Toast.makeText(getApplicationContext(),"You dont like yourself post!", Toast.LENGTH_SHORT).show();
+        }else {
+            post.setLikes(post.getLikes() + 1);
+            postService = ServiceUtils.postService;
+            Call<Post> posts = postService.updatePost(post, post.getId());
+            posts.enqueue(new Callback<Post>() {
+                @Override
+                public void onResponse(Call<Post> call, Response<Post> response) {
+                    Intent i = new Intent(getApplicationContext(), PostsActivity.class);
+                    startActivity(i);
+                    Toast.makeText(getApplicationContext(), "You clicked like", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Call<Post> call, Throwable t) {
+
+                }
+            });
+
+        }
     }
 
     public void addNewDislike(View view) {
-        TextView dislike = (TextView) findViewById(R.id.textDislike);
-        post_dislike = dislike.getText().toString();
-        int brojDislajkova = Integer.parseInt(post_dislike) +1;
-        dislike.setText(brojDislajkova);
+
+        if (logged.getUsername().equals(post.getAuthor().getUsername())){
+            Toast.makeText(getApplicationContext(),"You dont dislike yourself post!", Toast.LENGTH_SHORT).show();
+        }else {
+            post.setDislikes(post.getDislikes() + 1);
+            postService = ServiceUtils.postService;
+            Call<Post> posts = postService.updatePost(post, post.getId());
+            posts.enqueue(new Callback<Post>() {
+                @Override
+                public void onResponse(Call<Post> call, Response<Post> response) {
+                    Intent i = new Intent(getApplicationContext(), PostsActivity.class);
+                    startActivity(i);
+                    Toast.makeText(getApplicationContext(), "You clicked dislike", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Call<Post> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -292,27 +307,6 @@ public class ReadPostActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(c,"Delete post.",Toast.LENGTH_SHORT);
                 toast.show();
                 Intent i = new Intent(getApplicationContext(), PostsActivity.class);
-                startActivity(i);
-                finish();
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void deleteComment(Integer id){
-        commentService = ServiceUtils.commentService;
-        Call<Void> call = commentService.deleteComment(id);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                Context c = getBaseContext();
-                Toast toast = Toast.makeText(c,"Delete comment.",Toast.LENGTH_SHORT);
-                toast.show();
-                Intent i = new Intent(ReadPostActivity.this, PostsActivity.class);
                 startActivity(i);
                 finish();
             }
