@@ -7,6 +7,8 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -42,11 +44,13 @@ import com.nemanja97.androidposts.service.PostService;
 import com.nemanja97.androidposts.service.ServiceUtils;
 import com.nemanja97.androidposts.service.UserService;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,6 +79,7 @@ public class ReadPostActivity extends AppCompatActivity {
     private Post post;
     private CommentAdapter listCommentAdapter;
     private ListView listVieww;
+    private TextView location;
 
 
     @Override
@@ -115,9 +120,9 @@ public class ReadPostActivity extends AppCompatActivity {
         TextView tdate = (TextView)findViewById(R.id.textDate);
         String printDate=new SimpleDateFormat("dd.MM.yyyy HH:mm").format(post.getDate());
         tdate.setText(printDate);
-//        TextView tl = (TextView)findViewById(R.id.textLocationn);
-//        tl.setText("");
 
+        location = (TextView)findViewById(R.id.textLocationn);
+        getAddress(post.getLatitude(), post.getLongitude());
 
         TextView tlike = (TextView)findViewById(R.id.textLikePost);
         tlike.setText(String.valueOf(post.getLikes()));
@@ -180,12 +185,35 @@ public class ReadPostActivity extends AppCompatActivity {
 
             }
         });
+
+        TextView bb = (TextView)findViewById(R.id.userName);
+        bb.setText(logged.getUsername());
+    }
+
+    public void getAddress(double latitude,double longitude){
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            String city = addresses.get(0).getLocality();
+            String country = addresses.get(0).getCountryName();
+            location.setText(city + "," + country);
+
+
+            System.out.println(city);
+            System.out.println(country);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ){
-        mNavItems.add(new NavItem(getString(R.string.settings), "", R.drawable.settings_outline));
-        mNavItems.add(new NavItem(getString(R.string.posts_label), "", R.drawable.ic_launcher_background));
-        mNavItems.add(new NavItem("Log out", "", R.drawable.ic_launcher_background));
+        mNavItems.add(new NavItem(getString(R.string.settings), "Open all settings.", R.drawable.settings_outline));
+        mNavItems.add(new NavItem(getString(R.string.posts_label), "Open all post.", R.drawable.ic_launcher_background));
+        mNavItems.add(new NavItem("Log out", "Log out now.", R.drawable.ic_launcher_background));
 
     }
 

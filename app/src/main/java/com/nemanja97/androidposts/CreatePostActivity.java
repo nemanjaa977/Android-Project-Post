@@ -71,7 +71,6 @@ public class CreatePostActivity extends AppCompatActivity implements LocationLis
     private EditText text_title;
     private EditText text_description;
     private EditText text_tag;
-    private UserService userService;
     private User logged;
     private String userJson;
     private double longitude;
@@ -103,6 +102,7 @@ public class CreatePostActivity extends AppCompatActivity implements LocationLis
 
         sharedPreferences= getSharedPreferences("MyPref",Context.MODE_PRIVATE);
         userJson=sharedPreferences.getString("logovani","");
+        logged=new Gson().fromJson(userJson, User.class);
 
         mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -140,15 +140,18 @@ public class CreatePostActivity extends AppCompatActivity implements LocationLis
         text_description = findViewById(R.id.newTextDescription);
         text_tag = findViewById(R.id.newTextTags);
 
-        location_text = findViewById(R.id.location_edit);
         location_btn = findViewById(R.id.location_btn);
+        location_text = findViewById(R.id.location_edit);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        TextView tt = (TextView)findViewById(R.id.userName);
+        tt.setText(logged.getUsername());
     }
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ){
-        mNavItems.add(new NavItem(getString(R.string.settings), "", R.drawable.settings_outline));
-        mNavItems.add(new NavItem(getString(R.string.posts_label), "", R.drawable.ic_launcher_background));
-        mNavItems.add(new NavItem("Log out", "", R.drawable.ic_launcher_background));
+        mNavItems.add(new NavItem(getString(R.string.settings), "Open all settings.", R.drawable.settings_outline));
+        mNavItems.add(new NavItem(getString(R.string.posts_label), "Open all post.", R.drawable.ic_launcher_background));
+        mNavItems.add(new NavItem("Log out", "Log out now.", R.drawable.ic_launcher_background));
 
     }
 
@@ -263,7 +266,6 @@ public class CreatePostActivity extends AppCompatActivity implements LocationLis
         post.setPhoto(b);
 
 
-        logged=new Gson().fromJson(userJson,User.class);
         post.setAuthor(logged);
         postService=ServiceUtils.postService;
         Call<Post> call = postService.createPost(post);
@@ -410,4 +412,5 @@ public class CreatePostActivity extends AppCompatActivity implements LocationLis
     protected void onDestroy() {
         super.onDestroy();
     }
+
 }

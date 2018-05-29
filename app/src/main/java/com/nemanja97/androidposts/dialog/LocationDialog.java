@@ -11,14 +11,15 @@ import com.nemanja97.androidposts.R;
 
 public class LocationDialog extends AlertDialog.Builder {
 
-    public LocationDialog(Context context){
+    public LocationDialog(Context context) {
         super(context);
-        setDialog();
+
+        setUpDialog();
     }
 
-    private void setDialog(){
-        setTitle(R.string.oops);
-        setMessage(R.string.location_disabled_message);
+    private void setUpDialog(){
+        setTitle("Warning");
+        setMessage("Your location is disabled. Enable it?");
         setCancelable(false);
 
         setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -35,12 +36,12 @@ public class LocationDialog extends AlertDialog.Builder {
                 dialogInterface.cancel();
             }
         });
-
     }
 
     public AlertDialog prepareDialog(){
         AlertDialog dialog = create();
         dialog.setCanceledOnTouchOutside(false);
+
         return dialog;
     }
 

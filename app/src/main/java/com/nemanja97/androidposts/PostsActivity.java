@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -60,6 +61,8 @@ public class PostsActivity extends AppCompatActivity {
     private boolean sortPostByPopularity;
     private PostService postService;
     private ListView listVieww;
+    private String userJson;
+    private User logged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,10 @@ public class PostsActivity extends AppCompatActivity {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.menu);
         }
+
+        sharedPreferences= getSharedPreferences("MyPref",Context.MODE_PRIVATE);
+        userJson=sharedPreferences.getString("logovani","");
+        logged=new Gson().fromJson(userJson,User.class);
 
         prepareMenu(mNavItems);
 
@@ -111,8 +118,6 @@ public class PostsActivity extends AppCompatActivity {
 
           listVieww= findViewById(R.id.listPost);
 
-        sharedPreferences= getSharedPreferences("MyPref",Context.MODE_PRIVATE);
-
         postService = ServiceUtils.postService;
 
         Call call = postService.getAll();
@@ -140,6 +145,10 @@ public class PostsActivity extends AppCompatActivity {
                 startActivity(openReadPost);
             }
         });
+
+        TextView tt = (TextView)findViewById(R.id.userName);
+        tt.setText(logged.getUsername());
+
 //        consultPreference();
 
     }
@@ -186,9 +195,9 @@ public class PostsActivity extends AppCompatActivity {
 //    }
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ){
-        mNavItems.add(new NavItem(getString(R.string.settings), "", R.drawable.settings_outline));
-        mNavItems.add(new NavItem(getString(R.string.create_label), "", R.drawable.plus_circle_outline));
-        mNavItems.add(new NavItem("Log out", "", R.drawable.ic_launcher_background));
+        mNavItems.add(new NavItem(getString(R.string.settings), "Open all settings.", R.drawable.settings_outline));
+        mNavItems.add(new NavItem(getString(R.string.create_label), "Open create post.", R.drawable.plus_circle_outline));
+        mNavItems.add(new NavItem("Log out", "Log out now.", R.drawable.ic_launcher_background));
 
     }
 
