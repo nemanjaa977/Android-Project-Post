@@ -59,13 +59,9 @@
                 android:id="@+id/btnPicture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upload photo"/>
-
-            <EditText
-                android:id="@+id/newTextLocation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Location"/>
+                android:text="Upload photo"
+                android:background="#fff9f9"
+                android:textColor="#333"/>
 
             <EditText
                 android:id="@+id/newTextTags"
@@ -73,12 +69,35 @@
                 android:layout_height="wrap_content"
                 android:hint="Tag"/>
 
+            <EditText
+                android:id="@+id/location_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Location..."
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
+
             <Button
-                android:id="@+id/btnOkCreate"
+                android:id="@+id/location_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ok"
-                android:onClick="okCreateNewPost"/>
+
+                android:text="Get location"
+                android:background="#fff9f9"/>
+
+            <Button
+                android:id="@+id/btnOkCreate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create"
+                android:onClick="okCreateNewPost"
+                android:layout_marginTop="25dp"
+                android:background="#333"
+                android:textColor="#fff"
+                />
 
         </LinearLayout>
 

@@ -16,7 +16,7 @@
         android:id="@+id/deleteCommentare"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#333"
+        android:textColor="#fff"
         android:text="Delete comment"
         android:layout_below="@id/sadrzajComment"/>
 

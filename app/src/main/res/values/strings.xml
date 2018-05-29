@@ -13,6 +13,10 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="log_out">Log out</string>
+    <string name="oops">Ooops</string>
+    <string name="location_disabled_message">Your Locations seems to be disabled, do you want to enable it?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sort_post">Sort post</string>

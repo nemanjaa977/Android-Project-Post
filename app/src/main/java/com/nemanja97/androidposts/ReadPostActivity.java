@@ -115,8 +115,8 @@ public class ReadPostActivity extends AppCompatActivity {
         TextView tdate = (TextView)findViewById(R.id.textDate);
         String printDate=new SimpleDateFormat("dd.MM.yyyy HH:mm").format(post.getDate());
         tdate.setText(printDate);
-        TextView tl = (TextView)findViewById(R.id.textLocation);
-        tl.setText("");
+//        TextView tl = (TextView)findViewById(R.id.textLocationn);
+//        tl.setText("");
 
 
         TextView tlike = (TextView)findViewById(R.id.textLikePost);
@@ -207,7 +207,7 @@ public class ReadPostActivity extends AppCompatActivity {
     public void addNewLike(View view) {
 
         if (logged.getUsername().equals(post.getAuthor().getUsername())){
-            Toast.makeText(getApplicationContext(),"You dont like yourself post!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"You can't like yourself post!", Toast.LENGTH_SHORT).show();
         }else {
             post.setLikes(post.getLikes() + 1);
             postService = ServiceUtils.postService;
@@ -226,14 +226,13 @@ public class ReadPostActivity extends AppCompatActivity {
 
                 }
             });
-
         }
     }
 
     public void addNewDislike(View view) {
 
         if (logged.getUsername().equals(post.getAuthor().getUsername())){
-            Toast.makeText(getApplicationContext(),"You dont dislike yourself post!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"You can't dislike yourself post!", Toast.LENGTH_SHORT).show();
         }else {
             post.setDislikes(post.getDislikes() + 1);
             postService = ServiceUtils.postService;
